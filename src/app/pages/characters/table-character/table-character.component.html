@@ -1,0 +1,94 @@
+<div class=" relative flex flex-col  pb-14" >
+  <ng-container >
+    <div class="grid min-h-[80vh] flex-col">
+      <div class="max-h-[90vh] inventory-grid overflow-auto border border-purple-400/30 dark:border-blue-600/30 rounded-t-md shadow-lg" >
+        <div
+          class="dark:text-white text-gray-800 inventory-grid z-10 realitve top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold cristal"
+          matSort
+          matSortDisableClear
+        >
+          <div class="text-header-table" [mat-sort-header]="'name'">Name</div>
+          <div class="text-header-table" [mat-sort-header]="'stauts'">Status</div>
+          <div class="hidden lg:block text-header-table" [mat-sort-header]="'species'">Species</div>
+          <div class="hidden lg:block text-header-table" [mat-sort-header]="'type'">Type</div>
+          <div class="text-header-table" [mat-sort-header]="'gender'">Gender</div>
+          <div class="hidden lg:block md:block text-header-table" [mat-sort-header]="'created'">Created</div>
+          <div class="text-header-table">Acciones</div>
+        </div>
+        @for (item of characterStore.filteredCharecters(); track $index; let i = $index) {
+          <div class="dark:text-gray-200 text-gray-600 inventory-grid grid items-center gap-4 py-2 px-6 md:px-8 hover:bg-slate-200/20 duration-500 text-header-table text-start">
+            <div class=" line-clamp-2 ">
+              {{ item.name | titlecase }}
+            </div>
+            <div class=" truncate">
+              <div class="px-2 rounded-md font-semibold  text-center" 
+                [ngClass]="
+                  {
+                    'bg-green-200 text-green-700 w-14': item?.status === 'Alive',
+                    'bg-red-200 text-red-700 w-16': item?.status === 'Dead',
+                    'bg-yellow-200 text-yellow-700 w-20': item?.status === 'unknown'
+                  }"
+              >
+                {{ item.status | titlecase }}
+              </div>
+         
+            </div>
+            <div class="hidden lg:block truncate">
+              {{ item.species | titlecase }}
+            </div>
+            <div class="hidden lg:block truncate ">
+              {{ item.type | titlecase }}
+            </div>
+            <div class=" truncate">   
+              <div class="px-2 rounded-md font-semibold  text-center" 
+              [ngClass]="
+                {
+                  'bg-blue-200 text-blue-700 w-14': item?.gender === 'Male',
+                  'bg-fuchsia-200 text-fuchsia-700 w-16': item?.gender === 'Female',
+                  'bg-yellow-200 text-yellow-700 w-20': item?.gender === 'unknown'
+                }"
+            >
+              {{ item.gender | titlecase }}
+            </div>
+            </div>
+            <div class="hidden lg:block truncate text-xs">
+              {{ item.created | date: 'yyyy-MM-dd HH:mm:ss' }}
+            </div>
+            <div class=" truncate flex justify-center items-center gap-2">
+              <button (click)="showDetailCharacter(item)">
+                <span class="material-icons text-primary hover:text-secondary duration-300">
+                  visibility
+                </span>
+              </button>
+              <button (click)="selectFavoriteCharacter(item)">
+                <span 
+                  [ngClass]="{'text-red-400': characterStore.selectedFavoriteCharacter()?.id === item.id, 'text-gray-500': characterStore.selectedFavoriteCharacter()?.id !== item.id}"
+                  class="material-icons  hover:text-red-500 duration-300">
+                  favorite
+                </span>
+              </button>
+            </div>
+  
+          </div>
+  
+        }@empty {
+          <div class="flex items-center justify-center w-full h-32">
+            <p class="text-gray-500">No characters found</p>
+          </div>
+        }
+  
+      </div>
+      <mat-paginator
+        style="border-top: 0px solid #e5e7eb !important"
+        class="cristal-paginator w-full flex absolute bottom-0"
+        [length]="characterStore.pagination().length"
+        [pageIndex]="characterStore.pagination().page"
+        [pageSize]="characterStore.pagination().size"
+        showFirstLastButtons
+        (page)="cambiarPagina($event)"
+      ></mat-paginator>
+  
+    </div>
+   
+  </ng-container>
+</div>

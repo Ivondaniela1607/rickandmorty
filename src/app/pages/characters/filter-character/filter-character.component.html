@@ -1,0 +1,42 @@
+<div class="flex  w-full gap-4 mb-4">
+  <div class="relative group">
+    <input #searchInput 
+      type="text" name="name" id="name" 
+      class="form-input group-hover:text-primary text-gray-800" placeholder="Search..."
+      [value]="characterStore.searchTerm()"
+      (input)="searchName($event)" />
+    
+    @if (characterStore.searchTerm().length >= 3) {
+      <button (click)="cleanSearch()">
+        <span 
+          class="material-icons absolute top-1/2 right-4 cursor-pointer text-red-600 transform -translate-y-1/2">
+          delete_outline
+        </span>
+      </button>
+    } @else {
+      <span class="material-icons group-hover:text-primary absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500">
+        search
+      </span>
+    }
+    
+  </div>
+  <div class="relative w-52">
+    <select  
+      name="name" 
+      id="name"
+      class="form-select bg-primary text-white border-none appearance-none pr-12"
+      (change)="selectGender($event)"
+    >     
+      <option value="" disabled selected>Select gender...</option> 
+      @for (item of gender; track item) {
+        <option [value]="item.name" class="py-2 px-4 text-black">
+          {{ item.name }}
+        </option>
+      }
+    </select>
+  
+    <span class="material-icons pointer-events-none absolute inset-y-0 right-2 flex items-center text-white">
+      expand_more
+      </span>
+  </div>
+</div>

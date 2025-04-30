@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cristal {
+  @apply  rounded-md dark:bg-blue-900/20 bg-purple-400/20 backdrop-blur-lg !important;
+}
+.cristal-paginator {
+  @apply rounded-b-md bg-blue-200/100 backdrop-blur-lg font-semibold !important;
+}
+
+
+
+
+
+
+
+.form-input,
+.form-select {
+  @apply  w-52 px-3 py-2 border rounded-lg 
+          focus:border-secondary
+         hover:border-primary outline-none transition-colors duration-300 !important;
+
+  &:disabled {
+    @apply bg-gray-100 cursor-not-allowed;
+  }
+}

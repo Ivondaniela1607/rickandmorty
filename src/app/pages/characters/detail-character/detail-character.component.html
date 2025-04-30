@@ -1,0 +1,72 @@
+@if(characterStore.isLoading()) {
+  <div class="cristal rounded-2xl p-6 border border-purple-400/30 dark:border-blue-600/30 shadow-lg flex flex-col items-center gap-4 w-full max-w-md mx-auto animate-pulse">
+    <div class="w-36 h-36 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-purple-300 dark:border-blue-500 shadow-md"></div>
+    <div class="h-6 w-48 rounded bg-gray-300 dark:bg-gray-700"></div>
+    <div class="w-full flex flex-col gap-2 text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-32 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-40 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-36 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-44 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-40 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-36 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-44 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <div class="h-4 w-40 rounded bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+
+    </div>
+  </div>
+}@else {
+  <div class="cristal rounded-2xl p-4 border border-purple-400/30 dark:border-blue-600/30 shadow-lg flex flex-col items-center gap-4 w-full max-w-md mx-auto transition-all hover:shadow-purple-300/30 dark:hover:shadow-blue-800/30">
+    <img [appImgError] class="w-36 h-36 object-cover rounded-full border-4 border-purple-300 dark:border-blue-500 shadow-md" 
+      [src]="characterStore.selectedCharacter()?.image || ''"
+      [alt]="characterStore.selectedCharacter()?.name || 'Character'">
+  
+    <h2 class="text-3xl font-bold text-purple-700 dark:text-blue-400 text-center">
+      {{characterStore.selectedCharacter()?.name}}
+    </h2>
+  
+    <div class="w-full flex flex-col gap-2 text-start text-base text-gray-700 dark:text-gray-300">
+  
+      <div>
+        <span class="font-medium text-primary ">🎬 Episode:</span>
+        <span class="italic">{{characterStore.selectedCharacter()?.nameEpisode || 'N/A'}}</span>
+      </div>
+  
+      <div>
+        <span class="font-medium text-primary ">📍 Location:</span>
+        <span class="italic">{{characterStore.selectedCharacter()?.location?.name || 'N/A'}}</span>
+      </div>
+  
+      <div>
+        <span class="font-medium text-primary ">🌎 Origin:</span>
+        <span class="italic">{{characterStore.selectedCharacter()?.origin?.name || 'N/A'}}</span>
+      </div>
+  
+      <div>
+        <span class="font-medium text-primary ">👤 Resident Location:</span>
+        <span class="italic">{{characterStore.selectedCharacter()?.residentLocation || 'Sin residentes'}}</span>
+      </div>
+  
+      <div>
+        <span class="font-medium text-primary ">🧬 Resident Origin:</span>
+        <span class="italic">{{characterStore.selectedCharacter()?.residentOrigen || 'Sin residentes'}}</span>
+      </div>
+  
+    </div>
+  </div>
+}

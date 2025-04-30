@@ -1,0 +1,61 @@
+<div class="flex justify-end gap-4 items-center mb-4">
+  <button
+    (click)="showDetailCharacter()"
+    class="cristal p-2  relative flex gap-2 ">
+    <span class="material-icons w-6 h-6 text-2xl text-red-500 animate-pulse flex justify-center items-center">
+      favorite
+    </span>
+    {{characterStore.selectedFavoriteCharacter()?.name || 'Sin favorito'}}
+  </button>
+  <button 
+    (click)="themeToggleBtn()" 
+    class="bg-white/90 backdrop-blur-none  dark:backdrop-blur-none z-10 flex p-2 rounded-full aspect-square  hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-300 shadow-md">
+    
+    @if (themeToggleDarkIcon()) {
+
+      <span class="material-icons text-2xl w-6 h-6 text-yellow-500 animate-spin-slow flex justify-center items-center">
+        light_mode
+      </span>
+
+    }@else if (themeToggleLightIcon()) {
+      <span class="material-icons text-2xl w-6 h-6 text-blue-500 animate-pulse flex justify-center items-center">
+        nights_stay
+      </span>
+    }
+    
+  </button>
+  <button
+    cdkOverlayOrigin
+    #trigger1="cdkOverlayOrigin"
+    (click)="toggoleThemeColor()"
+    class="bg-white/90 backdrop-blur-none flex p-2 aspect-square rounded-full hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-300 shadow-md relative overflow-hidden">
+    <span class="material-icons w-6 h-6 text-2xl text-primary animate-pulse flex justify-center items-center">
+      palette
+    </span>
+    <span class="absolute inset-0 rounded-full"></span>
+  </button>
+</div>
+
+<ng-template  
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger1"
+  [cdkConnectedOverlayOpen]="isPopoverThemeColor()"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayOffsetX]="0"
+  [cdkConnectedOverlayOffsetY]="0"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+  [cdkConnectedOverlayPanelClass]="'example-dialog-panel'"
+  (backdropClick)="isPopoverThemeColor.set(false)"
+>
+  @if (isPopoverThemeColor()) {
+    <div class="rounded-md w-full z-20 bg-white dark:bg-gray-800 shadow-lg p-4 border border-gray-200 mt-2 flex gap-4">
+      @for (item of colors(); track $index) {
+        <button (click)="applyTheme(item.empresa)" class="cursor-pointer rounded-full w-6 h-6 " 
+          [style.backgroundColor]="item.colors.primary"
+        >
+        </button>
+      }
+
+    </div>
+  }
+</ng-template>
