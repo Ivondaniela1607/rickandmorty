@@ -9,8 +9,8 @@ export class ApiRestService {
   readonly #apiSvc = inject(ApiService);
   constructor() { }
 
-  getCharacters(page: number = 1): Observable<any> {
-    return this.#apiSvc.getCharacters(`character`, page);
+  getCharacters(page: number = 1, search?: string): Observable<any> {
+    return this.#apiSvc.getCharacters(`character`, page,search);
   }
 
   getEpidodes(episode: []): Observable<any> {

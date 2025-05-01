@@ -32,12 +32,17 @@ export class ThemeModeComponent {
 
   ngOnInit(): void {
     this.seleccionTema();
+  
     if (isPlatformBrowser(this.platform)) {
       const savedTheme = localStorage.getItem('theme-empresa');
+  
       if (savedTheme) {
-          this.applyTheme(savedTheme);
+        this.applyTheme(savedTheme);
+      } else {
+        const defaultTheme = 'cyan'; 
+        this.applyTheme(defaultTheme);
       }
-  }
+    }
   }
 
   toggoleThemeColor() {

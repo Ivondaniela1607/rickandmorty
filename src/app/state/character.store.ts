@@ -45,10 +45,11 @@ const initialState: CharacterState = {
 //Estado inicial
 
 export const CharacterStore = signalStore(
-  { providedIn: "root" },
+  { providedIn: "root", protectedState: false },
   withState(initialState),
   withComputed( (store) => ({
     selectedCharacter: signal<Character | null>(null),
+    selectPAge: signal<number>(0),
     selectedFavoriteCharacter: signal<Character | null>(null),
     isLoading: signal<boolean>(false),
     pagination: computed(() => {
@@ -77,12 +78,12 @@ export const CharacterStore = signalStore(
     ) => ({
       stateSnapshot: computed(() => getState(store)),
     
-      loadCharacter: rxMethod(
+      loadCharacter: rxMethod<void>(
         pipe(
-          switchMap((page: number) => {
+          switchMap(() => {
             patchState(store, { isLoading: true });
-            const pageNew = page + 1;
-            return apiRestService.getCharacters((pageNew)).pipe(
+            const pageNew = store.selectPAge() + 1;
+            return apiRestService.getCharacters(pageNew, store.searchTerm()).pipe(
               tapResponse({
                 next: (res: any) => {
                   const allCharacters = res.results;
@@ -180,7 +181,7 @@ export const CharacterStore = signalStore(
   ),
   withHooks((store) => ({
     onInit: () => {
-      store.loadCharacter(0);
+      store.loadCharacter();
     },
     onDestroy: () => {
       console.log('onDestroy');

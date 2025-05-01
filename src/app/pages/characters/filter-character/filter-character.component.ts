@@ -19,6 +19,7 @@ export class FilterCharacterComponent {
   searchName( event: Event ): void {
     if (event.target instanceof HTMLInputElement) {
       this.characterStore.setSearchTerm(event.target.value);
+      this.characterStore.loadCharacter();
     }
   }
 

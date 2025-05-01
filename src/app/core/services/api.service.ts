@@ -12,8 +12,12 @@ export class ApiService {
 
     baseUrl = environment.SERVER_URL;
 
-    getCharacters(url: string, page?: number): Observable<any> {
-        return this.#httpCliente.get(`${this.baseUrl}${url}?page=${page}`);
+    getCharacters(url: string, page?: number, search?: string): Observable<any> {
+        if (search) {
+            return this.#httpCliente.get(`${this.baseUrl}${url}?name=${search}`);
+        }else {
+            return this.#httpCliente.get(`${this.baseUrl}${url}?page=${page}`);
+        }
     }
 
     getEpisodes(url: string, episode:[] ): Observable<any> {

@@ -41,7 +41,8 @@ export class TableCharacterComponent {
   }
 
   cambiarPagina(event: PageEvent){
-    this.characterStore.loadCharacter(event.pageIndex);
+    this.characterStore.selectPAge.set(event.pageIndex);
+    this.characterStore.loadCharacter();
   }
 
 
